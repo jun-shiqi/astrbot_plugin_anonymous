@@ -16,6 +16,6 @@ class MyPlugin(Star):
         message_str = event.message_str # 用户发的纯文本消息字符串
         message_chain = MessageChain().message(message_str)
         logger.info(message_chain)
-        s=event.get_platform_name
+        s=event.get_session_id
         yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息
         await self.context.send_message(event.unified_msg_origin, message_chain)

@@ -18,7 +18,30 @@ class MyPlugin(Star):
         logger.info(message_chain)
         s=event.get_group_id()
         yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息
-        if(event.get_group_id()=="1031311599"):
-            await self.context.send_message(event.unified_msg_origin, message_chain)
-        else:
-            yield event.plain_result(f"发送失败")
+        if event.get_platform_name() == "aiocqhttp":
+        # qq
+            from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
+            assert isinstance(event, AiocqhttpMessageEvent)
+            client = event.bot # 得到 client
+            import http.client
+            import json
+
+            conn = http.client.HTTPSConnection("")
+            payload = json.dumps({
+            "group_id": "1031311599",
+            "message": [
+                {
+                    "type": "text",
+                    "data": {
+                        "text": "你好"
+                    }
+                }
+            ]
+            })
+            headers = {
+            'Content-Type': 'application/json'
+            }
+            conn.request("POST", "/send_group_msg", payload, headers)
+            res = conn.getresponse()
+            data = res.read()
+            print(data.decode("utf-8"))

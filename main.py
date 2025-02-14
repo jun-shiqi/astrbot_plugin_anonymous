@@ -28,7 +28,7 @@ class MyPlugin(Star):
             url = "/send_group_msg"
 
             payload = json.dumps({
-            "group_id": "123456",
+            "group_id": "1031311599",
             "message": [
                 {
                     "type": "text",

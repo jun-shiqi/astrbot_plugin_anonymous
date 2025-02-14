@@ -12,10 +12,11 @@ class MyPlugin(Star):
     @filter.command("opl")
     async def opl(self, event: AstrMessageEvent):
         '''这是一个 hello world 指令''' # 这是 handler 的描述，将会被解析方便用户了解插件内容。建议填写。
-        user_name = event.unified_msg_origin
+        umo = event.unified_msg_origin
+        umo
         message_str = event.message_str # 用户发的纯文本消息字符串
         message_chain = MessageChain().message(message_str)
         logger.info(message_chain)
-        s=event.get_session_id
+        s=event.get_group_id()
         yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息
         await self.context.send_message(event.unified_msg_origin, message_chain)

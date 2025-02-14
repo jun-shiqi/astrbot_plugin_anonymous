@@ -17,7 +17,6 @@ class MyPlugin(Star):
         message_chain = MessageChain().message(message_str)
         logger.info(message_chain)
         s=event.get_group_id()
-        yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息
         if event.get_platform_name() == "aiocqhttp":
         # qq
             from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
@@ -45,3 +44,4 @@ class MyPlugin(Star):
             res = conn.getresponse()
             data = res.read()
             print(data.decode("utf-8"))
+        yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息

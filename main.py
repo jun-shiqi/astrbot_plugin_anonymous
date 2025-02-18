@@ -10,13 +10,8 @@ class MyPlugin(Star):
     
     # 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
     @filter.command("opl")
-    async def opl(self, event: AstrMessageEvent):
+    async def opl(self, event: AstrMessageEvent,massage :str):
         '''这是一个 hello world 指令''' # 这是 handler 的描述，将会被解析方便用户了解插件内容。建议填写。
-        umo = event.unified_msg_origin
-        message_str = event.message_str # 用户发的纯文本消息字符串
-        message_chain = MessageChain().message(message_str)
-        logger.info(message_chain)
-        s=event.get_group_id()
         if event.get_platform_name() == "aiocqhttp":
             from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
             assert isinstance(event, AiocqhttpMessageEvent)
@@ -27,7 +22,7 @@ class MyPlugin(Star):
                     {
                         "type": "text",
                         "data": {
-                        "text": "你好\n"
+                        "text": massage
                         }
                     }
                 ]

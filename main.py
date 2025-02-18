@@ -21,7 +21,7 @@ class MyPlugin(Star):
             import requests
             import json
 
-            url = "ws://localhost:6199/ws/send_group_msg"
+            url = "http://127.0.0.1:3000//send_group_msg"
 
             payload = json.dumps({
             "group_id": "1031311599",

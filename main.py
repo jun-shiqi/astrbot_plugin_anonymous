@@ -22,27 +22,16 @@ class MyPlugin(Star):
             from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
             assert isinstance(event, AiocqhttpMessageEvent)
             client = event.bot # 得到 client
-            import requests
-            import json
-
-            url = "/send_group_msg"
-
-            payload = json.dumps({
-            "group_id": "1031311599",
-            "message": [
-                {
-                    "type": "text",
-                    "data": {
-                        "text": "napcat"
+            payloads = {
+                "group_id": "1031311599",
+                "nessage":[
+                    {
+                        "type": "text",
+                        "data": {
+                            "text": "napcat"
+                        }
                     }
-                }
-            ]
-            })
-            headers = {
-            'Content-Type': 'application/json'
+                ]
             }
-
-            response = requests.request("POST", url, headers=headers, data=payload)
-
-            print(response.text)
+            ret = await client.api.call_action('', **payloads) # 调用 协议端  API
         yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息

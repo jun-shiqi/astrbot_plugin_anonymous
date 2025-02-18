@@ -37,5 +37,5 @@ class MyPlugin(Star):
     
     @filter.command("匿名帮助")
     async def help(self,event:AstrMessageEvent):
-        yield event.plain_result(f"使用该功能小窗机器人可以实现匿名传话。格式为/匿名 qq群号 内容") # 发送一条纯文本消息
+        yield event.plain_result(f"使用该功能小窗机器人可以实现匿名传话。格式为：/匿名 qq群号 内容") # 发送一条纯文本消息
     

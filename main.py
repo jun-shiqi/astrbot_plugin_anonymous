@@ -10,14 +10,14 @@ class MyPlugin(Star):
     
     # 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
     @filter.command("opl")
-    async def opl(self, event: AstrMessageEvent,massage :str):
+    async def opl(self, event: AstrMessageEvent,massage :str,g_id:str):
         '''这是一个 hello world 指令''' # 这是 handler 的描述，将会被解析方便用户了解插件内容。建议填写。
         if event.get_platform_name() == "aiocqhttp":
             from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
             assert isinstance(event, AiocqhttpMessageEvent)
             client = event.bot # 得到 client
             payloads = {
-                "group_id": "1031311599",
+                "group_id": g_id,
                 "message": [
                     {
                         "type": "text",

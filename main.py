@@ -18,27 +18,20 @@ class MyPlugin(Star):
         logger.info(message_chain)
         s=event.get_group_id()
         if event.get_platform_name() == "aiocqhttp":
-            import requests
-            import json
-
-            url = "http://127.0.0.1:3000//send_group_msg"
-
-            payload = json.dumps({
-            "group_id": "1031311599",
-            "message": [
-                {
-                    "type": "text",
-                    "data": {
-                        "text": "napcat"
+            from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
+            assert isinstance(event, AiocqhttpMessageEvent)
+            client = event.bot # 得到 client
+            payloads = {
+                "group_id": "1031311599",
+                "message": [
+                    {
+                        "type": "text",
+                        "data": {
+                        "text": "你好\n"
+                        }
                     }
-                }
-            ]
-            })
-            headers = {
-            'Content-Type': 'application/json'
+                ]
             }
-
-            response = requests.request("POST", url, headers=headers, data=payload)
-
-            print(response.text)
+            ret = await client.api.call_action('send_group_msg', **payloads) # 调用 协议端  API
+            logger.info(f"delete_msg: {ret}")
         yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息

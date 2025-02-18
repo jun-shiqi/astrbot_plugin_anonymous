@@ -29,4 +29,4 @@ class MyPlugin(Star):
             }
             ret = await client.api.call_action('send_group_msg', **payloads) # 调用 协议端  API
             logger.info(f"delete_msg: {ret}")
-        yield event.plain_result(f"消息已转发{s}") # 发送一条纯文本消息
+        yield event.plain_result(f"消息已转发") # 发送一条纯文本消息
